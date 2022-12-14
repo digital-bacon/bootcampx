@@ -14,10 +14,10 @@ const query = {
 SELECT students.id as student_id, students.name as name, cohorts.name as cohort
 FROM students
 JOIN cohorts ON cohorts.id = students.cohort_id
-WHERE cohorts.name = $1
+WHERE cohorts.name LIKE $1
 LIMIT $2;
 `,
-  values: [cohortName, (limitResults ? limitResults : 5)],
+  values: [`%${cohortName}%`, (limitResults ? Number(limitResults) : 5)],
 }
 
 pool
